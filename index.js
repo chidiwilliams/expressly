@@ -9,7 +9,9 @@ const { print, initialize } = require('./lib/initialize');
 
 program
   .version('0.0.1')
-  .description('A command-line tool for quickly bootstrapping Express apps');
+  .description(
+    'A command-line tool for seamlessly bootstrapping ExpressJS apps',
+  );
 
 const questions1 = [
   {
@@ -21,11 +23,11 @@ const questions1 = [
   },
 ];
 
-const clients = {
+const db_clients = {
   MongoDB: [
     {
       type: 'list',
-      name: 'db-client',
+      name: 'db_client',
       message: 'Choose a MongoDB client:',
       choices: ['Mongoose'],
       default: ['Mongoose'],
@@ -42,11 +44,16 @@ program
       chalk.yellow(figlet.textSync('Expressly', { horizontalLayout: 'full' })),
     );
 
+    let database = '',
+      client = '';
+
     prompt(questions1)
-      .then((database) => {
-        return prompt(clients[database.db]);
+      .then((user_db) => {
+        database = user_db.db;
+        return prompt(db_clients[database]);
       })
-      .then((client) => {
+      .then((user_client) => {
+        client = user_client.db_client
         initialize(name, database, client);
       })
       .catch();
