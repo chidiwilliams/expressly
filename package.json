@@ -1,0 +1,33 @@
+{
+  "name": "expressly",
+  "version": "1.0.0",
+  "description": "CLI for bootstrapping ExpressJS APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "expressjs",
+    "api",
+    "cli"
+  ],
+  "author": "Chidi Williams",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
+    "commander": "^2.15.1",
+    "figlet": "^1.2.0",
+    "inquirer": "^6.0.0",
+    "mkdirp": "^0.5.1",
+    "shelljs": "^0.8.2",
+    "touch": "^3.1.0"
+  },
+  "bin": {
+    "expressly": "./index.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {}
+}
