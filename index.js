@@ -44,19 +44,23 @@ program
       chalk.yellow(figlet.textSync('Expressly', { horizontalLayout: 'full' })),
     );
 
-    let database = '',
-      client = '';
+    let options = {
+      db: '',
+      db_client: '',
+    };
 
     prompt(questions1)
       .then((user_db) => {
-        database = user_db.db;
-        return prompt(db_clients[database]);
+        options.db = user_db.db;
+        return prompt(db_clients[options.db]);
       })
       .then((user_client) => {
-        client = user_client.db_client
-        initialize(name, database, client);
+        options.db_client = user_client.db_client;
+        initialize(name, options);
       })
-      .catch();
+      .catch((err) => {
+        console.log(err)
+      });
   });
 
 program.parse(process.argv);
