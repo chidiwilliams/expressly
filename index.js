@@ -4,8 +4,13 @@ const program = require('commander');
 const chalk = require('chalk');
 const figlet = require('figlet');
 const { prompt } = require('inquirer');
-const files = require('./lib/files');
 const { print, initialize } = require('./lib/initialize');
+
+let config = {
+  name: '',
+  db: '',
+  db_client: '',
+};
 
 program
   .version('0.0.1')
@@ -44,22 +49,19 @@ program
       chalk.yellow(figlet.textSync('Expressly', { horizontalLayout: 'full' })),
     );
 
-    let options = {
-      db: '',
-      db_client: '',
-    };
+    config.name = name;
 
     prompt(questions1)
       .then((user_db) => {
-        options.db = user_db.db;
-        return prompt(db_clients[options.db]);
+        config.db = user_db.db;
+        return prompt(db_clients[config.db]);
       })
       .then((user_client) => {
-        options.db_client = user_client.db_client;
-        initialize(name, options);
+        config.db_client = user_client.db_client;
+        initialize(config);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
   });
 
