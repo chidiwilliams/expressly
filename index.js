@@ -41,15 +41,15 @@ const db_clients = {
 };
 
 program
-  .command('init <name>')
+  .command('init <app_name>')
   .description('Initialize ExpressJS application')
-  .action((name) => {
+  .action((app_name) => {
     clear();
     console.log(
       chalk.yellow(figlet.textSync('Expressly', { horizontalLayout: 'full' })),
     );
 
-    config.name = name;
+    config.name = app_name;
 
     prompt(questions1)
       .then((user_db) => {
@@ -66,3 +66,7 @@ program
   });
 
 program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  program.help();
+}
