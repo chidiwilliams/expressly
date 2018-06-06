@@ -4,7 +4,8 @@ const program = require('commander');
 const chalk = require('chalk');
 const figlet = require('figlet');
 const { prompt } = require('inquirer');
-const { print, initialize } = require('./lib/initialize');
+const { initialize } = require('./lib/initialize');
+const { dbs, db_clients } = require('./lib/questions');
 
 let config = {
   name: '',
@@ -18,28 +19,6 @@ program
     'A command-line tool for seamlessly bootstrapping ExpressJS apps',
   );
 
-const questions1 = [
-  {
-    type: 'list',
-    name: 'db',
-    message: 'Select the type of database:',
-    choices: ['MongoDB'],
-    default: ['MongoDB'],
-  },
-];
-
-const db_clients = {
-  MongoDB: [
-    {
-      type: 'list',
-      name: 'db_client',
-      message: 'Choose a MongoDB client:',
-      choices: ['Mongoose'],
-      default: ['Mongoose'],
-    },
-  ],
-};
-
 program
   .command('init <app_name>')
   .description('Initialize ExpressJS application')
@@ -51,7 +30,7 @@ program
 
     config.name = app_name;
 
-    prompt(questions1)
+    prompt(dbs)
       .then((user_db) => {
         config.db = user_db.db;
         return prompt(db_clients[config.db]);
